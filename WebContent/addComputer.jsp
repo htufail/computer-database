@@ -3,12 +3,12 @@
 
 	<h1>Add Computer</h1>
 	
-	<form action="addComputer.jsp" method="POST">
+	<form action="AddController" method="POST">
 		<fieldset>
 			<div class="clearfix">
 				<label for="name">Computer name:</label>
 				<div class="input">
-					<input type="text" name="name" />
+					<input type="text" name="computerName" />
 					<span class="help-inline">Required</span>
 				</div>
 			</div>
@@ -23,7 +23,7 @@
 			<div class="clearfix">
 				<label for="discontinued">Discontinued date:</label>
 				<div class="input">
-					<input type="date" name="introducedDate" pattern="YY-MM-dd"/>
+					<input type="date" name="discontinuedDate" pattern="YY-MM-dd"/>
 					<span class="help-inline">YYYY-MM-DD</span>
 				</div>
 			</div>
@@ -40,7 +40,7 @@
 			</div>
 		</fieldset>
 		<div class="actions">
-			<input type="submit" value="Add" class="btn primary">
+			<input type="submit" value="Add" class="btn primary" href="Controller">
 			or <a href="dashboard.jsp" class="btn">Cancel</a>
 		</div>
 	</form>
