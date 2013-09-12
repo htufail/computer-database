@@ -8,7 +8,7 @@
 	computers have been found
 		</h1>
 	<div id="actions">
-		<form action="" method="GET">
+		<form action="Controller" method="GET">
 			<input type="search" id="searchbox" name="search"
 				value="" placeholder="Search name">
 			<input type="submit" id="searchsubmit"
@@ -33,9 +33,9 @@
 			</thead>
 			<tbody>
 
+				
+				<c:forEach items="${requestScope.computers}" var="computer">
 				<tr>
-				<c:forEach 
-					items="${requestScope.computers}" var="computer">
 					<td>${computer.name}</td>
 					<td>${computer.introduced}</td>
 					<td>${computer.discontinued}</td>

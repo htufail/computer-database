@@ -1,8 +1,5 @@
 package fr.formation.computerdatabase.domain;
 
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,14 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @Table (name = "computer")
-@NamedQuery (name="findAllComputers", query="Select c from Computer c")
+
 public class Computer {
 	
 	@Id 
@@ -82,6 +78,11 @@ public class Computer {
 	}
 	
 	//Classe Builder
+	/**
+	 * 
+	 * @author Hina
+	 * Ceci est un builder qui permet construire les ordinateurs
+	 */
 		public static class Builder {
 			private Computer computer;
 
@@ -101,47 +102,23 @@ public class Computer {
 			}
 			
 			
-			public Builder introduced(String dateInit) {
+			public Builder introduced(Date dateInit) {
 				
-				DateFormat df = DateFormat.getDateInstance();
-				Date newDateInit = null;
-				System.out.println("Building dateInit");
-				try {
-					newDateInit = df.parse(dateInit);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					System.out.println("problem date init");
-				}
-				
-				computer.setIntroduced(newDateInit);
+				computer.setIntroduced(dateInit);
 				return this;
 			}
 			
 			
-			public Builder discontinued(String dateDisc) {
+			public Builder discontinued(Date dateDisc) {
 				
-				DateFormat df =  DateFormat.getDateInstance();
-				Date newDateDisc = null;
-				System.out.println("Building dateDisc");
-				try {
-					newDateDisc = df.parse(dateDisc);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					System.out.println("problem date disc");
-				}
-				
-				computer.setDiscontinued(newDateDisc);
+				computer.setDiscontinued(dateDisc);
 				return this;
 			}
 
-			public Builder company(String company){
-				Company myCompany = new Company();
-				myCompany.setName(company);
-				System.out.println("Building company..");
-				
+			public Builder companie(Company myCompany){
+
 				computer.setCompanie(myCompany);
+				System.out.println("Building company..");
 				return this;
 			}
 			public Computer build() {

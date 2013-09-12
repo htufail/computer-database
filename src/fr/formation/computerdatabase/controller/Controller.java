@@ -1,7 +1,6 @@
 package fr.formation.computerdatabase.controller;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,14 +33,28 @@ public class Controller extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+		//Récupération pour la recherche
+		String search = null;
+		search = request.getParameter("search");
+		System.out.println("L'utilisateur recherche : " + search);
 		
 		//On récupère les companies et les ordinateurs
-		request.setAttribute("companies", monService.getCompanies());
-		request.setAttribute("computers", monService.getComputers());
-		
+		if(search !=null && !search.trim().isEmpty()){
+			request.setAttribute("computers", monService.getComputersBySearch(search));
+			System.out.println("Recherche en cours");
+		}
+		else{
+			//Si pas de recherche
+			request.setAttribute("computers", monService.getComputers());
+			System.out.println("on get tous les ordis");
+			
+		}
+
 		
 		//Affichage
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/dashboard.jsp"));
+		//A CHANGER :
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/WEB-INF/dashboard.jsp"));
 		rd.forward(request, response);
 	}
 
@@ -49,6 +62,7 @@ public class Controller extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		
 	    
 	}

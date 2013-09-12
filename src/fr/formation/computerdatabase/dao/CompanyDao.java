@@ -3,11 +3,10 @@ package fr.formation.computerdatabase.dao;
 import java.util.List;
 
 import fr.formation.computerdatabase.domain.Company;
-import fr.formation.computerdatabase.domain.Computer;
 
-public interface GeneralDao {
+public interface CompanyDao {
 
 	List<Company> getCompanies();
-	List<Computer> getComputers();
-	void addComputer(Computer computer);
+	Company getCompany(long company_id);
+	
 }
