@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import fr.formation.computerdatabase.dao.ComputerDao;
 import fr.formation.computerdatabase.dao.manager.GeneralDaoManager;
+
 import fr.formation.computerdatabase.domain.Computer;
 
 public class ComputerDaoImpl implements ComputerDao{
@@ -103,6 +104,89 @@ public class ComputerDaoImpl implements ComputerDao{
 				em.close();
 		}
 		
+	}
+
+	@Override
+	public Computer getComputerById(long computer_id) {
+		
+		//On initialise
+		EntityManager em = null;
+		Computer myComputer = new Computer();
+
+		try {
+			//On get un entity manager
+			em = GeneralDaoManager.INSTANCE.getEntityManager();
+			 //
+			String myQuery = "Select c from Computer c WHERE c.id = " + computer_id;
+			Query query = em.createQuery(myQuery);
+			myComputer = (Computer) query.getSingleResult();
+			
+		}
+			catch(Exception e) {
+			  e.printStackTrace();
+	    	}
+			finally {
+				if(em != null)
+				        em.close();
+			}
+		
+		return myComputer;
+	}
+
+	@Override
+	public void updateComputer(Computer computer) {
+		
+EntityManager em = null;
+		
+		try {
+			//Recuperation de l'entityManager qui gere la connexion a la BD
+			em = GeneralDaoManager.INSTANCE.getEntityManager();
+			//Debut de transaction (obligatoire pour des operations d'ecriture sur la BDD)
+			em.getTransaction().begin();
+
+			//Sauvegarde de l'utilisateur
+			em.merge(computer);
+			
+			//Commit de la transaction = on applique toutes les operations ci dessus
+			em.getTransaction().commit();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(em != null)
+				em.close();
+		}
+	}
+
+	@Override
+	public void deleteComputer(Computer computer) {
+		
+		//On initialise
+				EntityManager em = null;
+
+				try {
+					//On get un entity manager
+					em = GeneralDaoManager.INSTANCE.getEntityManager();
+					 
+					//Debut de transaction (obligatoire pour des operations d'ecriture sur la BDD)
+					em.getTransaction().begin();
+
+					String myQuery = "delete from Computer c WHERE c.id = " + computer.getId();
+					Query query = em.createQuery(myQuery);
+					query.executeUpdate();
+					
+					
+					//Commit de la transaction = on applique toutes les operations ci dessus
+					em.getTransaction().commit();
+					
+				}
+					catch(Exception e) {
+					  e.printStackTrace();
+			    	}
+					finally {
+						if(em != null)
+						        em.close();
+					}
 	}
 
 }

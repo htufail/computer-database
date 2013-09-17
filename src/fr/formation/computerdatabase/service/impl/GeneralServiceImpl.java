@@ -48,4 +48,20 @@ public class GeneralServiceImpl implements GeneralService{
 		return computerDao.getComputersBySearch(search);
 	}
 
+	@Override
+	public Computer getComputerById(long computer_id) {
+		return computerDao.getComputerById(computer_id);
+	}
+
+	@Override
+	public void updateComputer(Computer computer) {
+		computerDao.updateComputer(computer);
+		
+	}
+
+	@Override
+	public void deleteComputer(Computer computer) {
+		computerDao.deleteComputer(computer);		
+	}
+
 }

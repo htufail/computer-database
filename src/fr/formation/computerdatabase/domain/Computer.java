@@ -90,7 +90,7 @@ public class Computer {
 				computer = new Computer();
 			}
 
-			public Builder id(int id) {
+			public Builder id(long id) {
 				computer.setId(id);
 				return this;
 			}

@@ -61,8 +61,6 @@ public class CompanyDaoImpl implements CompanyDao{
 					String myQuery = "Select c from Company c WHERE c.id = " + company_id;
 					Query query = em.createQuery(myQuery);
 					myCompany = (Company) query.getSingleResult();
-					
-					System.out.println("FIND COMPANY BY ID : " + myCompany.toString());
 				}
 					catch(Exception e) {
 					  e.printStackTrace();

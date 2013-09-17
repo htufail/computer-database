@@ -44,7 +44,6 @@ public class AddController extends HttpServlet {
 		request.setAttribute("companies", monService.getCompanies());
 		
 		//Affichage
-		//A CHANGER :
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/WEB-INF/addComputer.jsp"));
 		rd.forward(request, response);
 	}
@@ -70,8 +69,8 @@ public class AddController extends HttpServlet {
 			newDateDisc = df.parse(discontinuedDate);
 			
 		} catch (ParseException e) {
-			e.printStackTrace();
-			System.out.println("problem date parsing");
+			//traitement des dates en cas de format incorrect
+			//e.printStackTrace();
 		}
 		
 		//On récupère l'id company renvoyé par le paramètre
@@ -79,22 +78,28 @@ public class AddController extends HttpServlet {
 		
 		//On souhaite récupérer l'objet "Company"
 		Company newCompany = monService.getCompany(company_id);
-			   
+		
+		RequestDispatcher rd;
 		//Test de validite des champs nom de l'ordi, dates, et entreprise
-		if(name != null && !name.isEmpty() 
+		if(name != null && !name.trim().isEmpty() 
 		   	&& introducedDate != null 
-		   	&& !introducedDate.isEmpty()
+		   	&& !introducedDate.trim().isEmpty()
 		   	&& discontinuedDate != null 
-		   	&& !discontinuedDate.isEmpty()){
+		   	&& !discontinuedDate.trim().isEmpty()){
 			    	monService.addComputer(new Computer.Builder().name(name)
 			    							.introduced(newDateInit)
 			    							.discontinued(newDateDisc)
 			    							.companie(newCompany)
 			    							.build());
+			    	
+					   //Redirection vers la page principale
+			rd = getServletContext().getRequestDispatcher(response.encodeURL("/index.jsp"));
 		  }
+		else{
+			rd = getServletContext().getRequestDispatcher(response.encodeURL("/WEB-INF/addComputer.jsp"));
+		}
 			    
-		   //Redirection vers la page principale
-			RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/index.jsp"));
+
 			rd.forward(request, response);
 		
 	}
