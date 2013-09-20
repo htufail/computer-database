@@ -66,7 +66,6 @@ public class EditController extends HttpServlet {
 		//On récupère l'ordinateur via son id
 		Computer computer = monService.getComputerById(computer_id);
 		//On enregistre l'ordinateur récupéré et on le set pour notre jsp
-		//request.setAttribute("computerSaved", computer);
 		
 		
 		// On récupère les entrées de l'utilisateur
@@ -112,9 +111,6 @@ public class EditController extends HttpServlet {
 						computer.setCompanie(newCompany);
 					    monService.updateComputer(computer);
 					    	
-					//on set nos variables d'erreur à false pour indiquer que tout a été édité correctement
-					    //request.setAttribute("errorName", false);
-					    //request.setAttribute("dateError", false);
 				   //Redirection vers la page principale
 					rd = getServletContext().getRequestDispatcher(response.encodeURL("/index.jsp"));
 					rd.forward(request, response);
@@ -123,14 +119,11 @@ public class EditController extends HttpServlet {
 					//Si le nom est vide
 					if(error==false && (name.trim().isEmpty() || name == null) ){
 						//JOptionPane.showMessageDialog(null,"Please specify a name for your computer", "Name required", JOptionPane.WARNING_MESSAGE);
-						//request.setAttribute("errorName", true);
+						
 					}
 					if(introducedDate == null || introducedDate.trim().isEmpty() || discontinuedDate == null || discontinuedDate.trim().isEmpty()){
 						//JOptionPane.showMessageDialog(null,"Please specify a date for your computer", "Date is required", JOptionPane.WARNING_MESSAGE);
-						//request.setAttribute("dateError", true);
 					}
-					//On reste sur la même page
-					//doGet(request, response);
 					
 				}
 				

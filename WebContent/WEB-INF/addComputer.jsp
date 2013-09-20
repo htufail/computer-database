@@ -14,6 +14,9 @@
 			<div class="clearfix">
 				<label for="name">Computer name:</label>
 				<div class="input">
+				
+				<!-- On récupère la valeur à partir de l'attribut name de computer -->
+				
 					<input type="text" name="computerName" />
 					<span class="help-inline">Required</span>
 				</div>
@@ -22,6 +25,9 @@
 			<div class="clearfix">
 				<label for="introduced">Introduced date:</label>
 				<div class="input">
+				
+				<!-- On récupère la valeur à partir de l'attribut introduced date de computer -->
+				
 					<input type="date" name="introducedDate" id="introducedDate" pattern="YY-MM-dd"/>
 					<span class="help-inline">YYYY-MM-DD</span>
 				</div>
@@ -29,6 +35,9 @@
 			<div class="clearfix">
 				<label for="discontinued">Discontinued date:</label>
 				<div class="input">
+				
+				<!-- On récupère la valeur à partir de l'attribut discontinued date de computer -->
+				
 					<input type="date" name="discontinuedDate" id="discontinuedDate" pattern="YY-MM-dd"/>
 					<span class="help-inline">YYYY-MM-DD</span>
 				</div>
@@ -59,20 +68,20 @@ ne marche pas bien sous IExplorer -->
 <script type="text/javascript">
 jQuery(document).ready(function(){
 	$("#addComputer").validate({
-	                rules: {
+	                rules: { //les rules sont des règles issues du plug in JQuery
 	                    "computerName" : {
-	                    	"required":true
+	                    	"required":true //permet de tester côté client si le champ n'est pas vide
 	                    },
 	                    "introducedDate" : {
 	                    	"required":true,
-	                    	"regex":/(\d{4})-(\d{2})-(\d{2})/
+	                    	"regex":/(\d{4})-(\d{2})-(\d{2})/ //permet de tester le format de date
 	                    },
 	                    "discontinuedDate" : {
 	                    	"required":true,
 	                    	"regex":/(\d{4})-(\d{2})-(\d{2})/
 	                    }
 	                },
-	                messages: {
+	                messages: { //affichage des messages d'erreur
 	                    computerName: "Please enter the computer name",
 	                    introducedDate: "Please enter the introduced date",
 	                    discontinuedDate:"Please enter the discontinued date"

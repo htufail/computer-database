@@ -153,6 +153,11 @@ public class ComputerDaoImpl implements ComputerDao{
 		
 	}
 
+	/**
+	 * @author Hina
+	 * @param computer_id est l'identifiant du computer, permet de rechercher l'ordinateur
+	 * méthode qui permet de rechercher un ordinateur via son id
+	 */
 	@Override
 	public Computer getComputerById(long computer_id) {
 		
@@ -248,7 +253,11 @@ public class ComputerDaoImpl implements ComputerDao{
 					}
 	}
 
-
+/**
+ * @author Hina
+ * @param offset permet de savoir quel est l'id du premier élément de la page quelque soit la page, noOfRecords permet de savoir sur combien de lignes dans la page actuelle
+ * méthode qui permet de récupérer les ordinateurs par page
+ */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Computer> getComputersByPage(int offset, int noOfRecords) {
@@ -260,13 +269,20 @@ public class ComputerDaoImpl implements ComputerDao{
 				try {
 					//On get un entity manager
 					em = GeneralDaoManager.INSTANCE.getEntityManager();
-					 //on effectue la query et on récupère la liste de résultats
+					
+					//on effectue la query et on récupère la liste de résultats
 					String query = "Select c from Computer c";
 					
+					//On crée la query
 					Query myQuery = em.createQuery(query);
 					
+					//On récupère le premier ordinateur qui sera sur la page
 					myQuery.setFirstResult(offset);
+					
+					//on indique quel est le maximum de résultats voulus sur une page
 					myQuery.setMaxResults(noOfRecords);
+					
+					//On récupère la liste d'ordinateurs
 					computers = myQuery.getResultList();
 					
 					

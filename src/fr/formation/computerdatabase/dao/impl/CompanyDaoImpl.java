@@ -58,9 +58,10 @@ public class CompanyDaoImpl implements CompanyDao{
 		try {
 					//On get un entity manager
 					em = GeneralDaoManager.INSTANCE.getEntityManager();
-					 //
+					 //récupérer la companie à partie de son id
 					String myQuery = "Select c from Company c WHERE c.id = " + company_id;
 					Query query = em.createQuery(myQuery);
+					//Recuperer le résultat
 					myCompany = (Company) query.getSingleResult();
 		}
 		 catch(Exception e) {
