@@ -1,5 +1,6 @@
 package fr.formation.computerdatabase.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -68,6 +69,16 @@ public class Computer {
 
 	public Date getIntroduced() {
 		return introduced;
+	}
+	
+	public String getIntroducedAsString(){
+		SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+		return introduced == null ? null : formatDate.format(introduced);
+	}
+	
+	public String getDiscontinuedAsString(){
+		SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+		return discontinued == null ? null : formatDate.format(discontinued);
 	}
 
 	public void setIntroduced(Date introduced) {

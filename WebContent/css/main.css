@@ -76,4 +76,5 @@ label.error{
 	color:red;
 	font-size:8pt;
 	display:inline;
+	float:left;
 }

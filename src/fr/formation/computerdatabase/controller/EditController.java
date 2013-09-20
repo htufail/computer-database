@@ -12,7 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
 
 import fr.formation.computerdatabase.domain.Company;
 import fr.formation.computerdatabase.domain.Computer;
@@ -91,19 +90,6 @@ public class EditController extends HttpServlet {
 			} catch (ParseException e) {
 				//traitement des dates en cas de format incorrect
 				
-				//Si le nom est vide en plus des problèmes de format pour notre date
-				if(name == null || name.trim().isEmpty()){
-					//JOptionPane.showMessageDialog(null,"Please specify a name and a correct date format for your computer", "Name and date required", JOptionPane.WARNING_MESSAGE);
-					error=true;
-			//		request.setAttribute("errorName", true);
-				//	request.setAttribute("dateError", true);
-					//doGet(request, response);
-					}else{
-						//S'il n'y a qu'un problème de date
-						//JOptionPane.showMessageDialog(null, "incorrect date format. You should use 'YYYY-MM-DD'", "Incorrect Date", JOptionPane.WARNING_MESSAGE);
-						//request.setAttribute("errorName", false);
-						//request.setAttribute("dateError", true);
-					}
 				}
 				
 				//On récupère l'id company renvoyé par le paramètre

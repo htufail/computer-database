@@ -37,8 +37,8 @@
 				<c:forEach items="${requestScope.computers}" var="computer">
 				<tr>
 					<td><a href="<c:url value="EditController?id=${computer.id}"/>"> ${computer.name}</a></td>
-					<td>${computer.introduced}</td>
-					<td>${computer.discontinued}</td>
+					<td>${computer.introducedAsString}</td>
+					<td>${computer.discontinuedAsString}</td>
 					<td>${computer.companie.name}</td> 
 				</tr>
 				</c:forEach>

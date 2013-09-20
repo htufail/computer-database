@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
+
 
 import fr.formation.computerdatabase.domain.Company;
 import fr.formation.computerdatabase.domain.Computer;
@@ -73,14 +73,7 @@ public class AddController extends HttpServlet {
 			newDateDisc = df.parse(discontinuedDate);
 			
 		} catch (ParseException e) {
-			//traitement des dates en cas de format incorrect
-			if(name == null || name.trim().isEmpty()){
-				JOptionPane.showMessageDialog(null,"Please specify a name and a correct date format for your computer", "Name and date required", JOptionPane.WARNING_MESSAGE);
-				error=true;
-			}else{
-				JOptionPane.showMessageDialog(null, "incorrect date format. You should use 'YYYY-MM-DD'", "Incorrect Date", JOptionPane.WARNING_MESSAGE);
-				
-			}
+		
 		}
 		
 		//On récupère l'id company renvoyé par le paramètre
@@ -106,8 +99,6 @@ public class AddController extends HttpServlet {
 			rd.forward(request, response);
 		  }
 		else{
-			if(!error)
-				JOptionPane.showMessageDialog(null,"Please specify a name for your computer", "Name required", JOptionPane.WARNING_MESSAGE);
 			//On reste sur la même page
 			doGet(request, response);
 		}

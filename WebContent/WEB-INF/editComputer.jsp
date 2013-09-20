@@ -13,33 +13,22 @@
 			<div class="clearfix">
 				<label for="name">Computer name:</label>
 				<div class="input">
-				  <input type="text" name="computerName" value="${computer.name}"/>
-				<!-- <input type="text" name="computerName" value="<c:choose>
-																	<c:when test="${errorName != null &&errorName == true }">
-																		${computerSaved.name}
-																	</c:when>
-																	<c:otherwise>
-																	<c:if test="${computer.name != null }">
-																		${computer.name}
-																	</c:if>
-																	
-																	</c:otherwise>
-																</c:choose>"/>-->
-				<span class="help-inline">Required</span>					
+					<input type="text" name="computerName" value="${computer.name}"/>
+					<span class="help-inline">Required</span>					
 				</div>
 			</div>
 	
 			<div class="clearfix">
 				<label for="introduced">Introduced date:</label>
 				<div class="input">
-					<input type="date" name="introducedDate" pattern="YY-MM-dd" value="${computer.introduced}"/>
+					<input type="date" name="introducedDate" pattern="YY-MM-dd" value="${computer.introducedAsString}"/>
 					<span class="help-inline" id="dateInitRequired">format : YYYY-MM-DD - required</span>
 				</div>
 			</div>
 			<div class="clearfix">
 				<label for="discontinued">Discontinued date:</label>
 				<div class="input">
-					<input type="date" name="discontinuedDate" pattern="YY-MM-dd" value="${computer.discontinued}"/>
+					<input type="date" name="discontinuedDate" pattern="YY-MM-dd" value="${computer.discontinuedAsString}"/>
 					<span class="help-inline" id="dateDiscRequired">format : YYYY-MM-DD - required</span>
 				</div>
 			</div>
@@ -69,8 +58,34 @@
 	</form>
 </section>
 
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	$("#editComputer").validate({
+	                rules: {
+	                    "computerName" : {
+	                    	"required":true
+	                    },
+	                    "introducedDate" : {
+	                    	"required":true,
+	                    	"regex":/(\d{4})-(\d{2})-(\d{2})/
+	                    },
+	                    "discontinuedDate" : {
+	                    	"required":true,
+	                    	"regex":/(\d{4})-(\d{2})-(\d{2})/
+	                    }
+	                },
+	                messages: {
+	                    computerName: "Please enter the computer name",
+	                    introducedDate: "Please enter the introduced date",
+	                    discontinuedDate:"Please enter the discontinued date"
+	                },
+	                submitHandler: function(form) {
+	                    form.submit();
+	                }
+	            });
 
-<script type="text/javascript" src="js/javascriptValidation.js"></script>
+});
+</script>
 
 
 <jsp:include page="include/footer.jsp" />
