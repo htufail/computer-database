@@ -36,10 +36,10 @@
 				
 				<c:forEach items="${requestScope.computers}" var="computer">
 				<tr>
-					<td><a href="EditController?id=${computer.id}"> ${computer.name}</a></td>
+					<td><a href="<c:url value="EditController?id=${computer.id}"/>"> ${computer.name}</a></td>
 					<td>${computer.introduced}</td>
 					<td>${computer.discontinued}</td>
-					<td>${computer.companie.name}</td>
+					<td>${computer.companie.name}</td> 
 				</tr>
 				</c:forEach>
 			</tbody>
@@ -47,7 +47,7 @@
 		
 
 <c:if test="${currentPage != 1}">
-        <td><a href="Controller?page=${currentPage - 1}">Previous</a></td>
+        <td><a href="<c:url value="Controller?page=${currentPage - 1}"/>">Previous</a></td>
 </c:if>
  
     
@@ -59,7 +59,8 @@
                         <td>${index}</td>
                     </c:when>
                     <c:otherwise>
-                        <td><a href="Controller?page=${index}">${index}</a></td>
+                        <td><a href="<c:url value="Controller?page=${index}"/>"> ${index}</a></td>
+                        
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -67,7 +68,7 @@
     </table>
  
     <c:if test="${currentPage lt nbPages}">
-        <td><a href="Controller?page=${currentPage + 1}">Next</a></td>
+        <td><a href="<c:url value="Controller?page=${currentPage + 1}"/>">Next</a></td>
     </c:if>-
 </section>
 

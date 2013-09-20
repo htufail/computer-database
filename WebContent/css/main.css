@@ -71,3 +71,9 @@ table.computers .header a {
 .col5 {
 	width: 30%;
 }
+
+label.error{
+	color:red;
+	font-size:8pt;
+	display:inline;
+}

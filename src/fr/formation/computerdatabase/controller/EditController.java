@@ -66,32 +66,43 @@ public class EditController extends HttpServlet {
 		
 		//On récupère l'ordinateur via son id
 		Computer computer = monService.getComputerById(computer_id);
+		//On enregistre l'ordinateur récupéré et on le set pour notre jsp
+		//request.setAttribute("computerSaved", computer);
 		
 		
 		// On récupère les entrées de l'utilisateur
 		String name = request.getParameter("computerName");
 		//Dates
-				String introducedDate = request.getParameter("introducedDate");
-				String discontinuedDate = request.getParameter("discontinuedDate");
+		String introducedDate = request.getParameter("introducedDate");
+		String discontinuedDate = request.getParameter("discontinuedDate");
 		
-				//Contrôle des dates
-				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-				Date newDateInit = null;
-				Date newDateDisc = null;
-				try {
-					if(!introducedDate.trim().isEmpty() && introducedDate != null)
-						newDateInit = df.parse(introducedDate);
-					if(!discontinuedDate.trim().isEmpty() && discontinuedDate != null)
-						newDateDisc = df.parse(discontinuedDate);
-					
-				} catch (ParseException e) {
-					//traitement des dates en cas de format incorrect
-					if(name == null || name.trim().isEmpty()){
-						JOptionPane.showMessageDialog(null,"Please specify a name and a correct date format for your computer", "Name and date required", JOptionPane.WARNING_MESSAGE);
-						error=true;
+		//Contrôle des dates
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Date newDateInit = null;
+		Date newDateDisc = null;
+				
+		
+		try {
+				if(!introducedDate.trim().isEmpty() && introducedDate != null)
+					newDateInit = df.parse(introducedDate);
+				if(!discontinuedDate.trim().isEmpty() && discontinuedDate != null)
+					newDateDisc = df.parse(discontinuedDate);
+				
+			} catch (ParseException e) {
+				//traitement des dates en cas de format incorrect
+				
+				//Si le nom est vide en plus des problèmes de format pour notre date
+				if(name == null || name.trim().isEmpty()){
+					//JOptionPane.showMessageDialog(null,"Please specify a name and a correct date format for your computer", "Name and date required", JOptionPane.WARNING_MESSAGE);
+					error=true;
+			//		request.setAttribute("errorName", true);
+				//	request.setAttribute("dateError", true);
+					//doGet(request, response);
 					}else{
-						JOptionPane.showMessageDialog(null, "incorrect date format. You should use 'YYYY-MM-DD'", "Incorrect Date", JOptionPane.WARNING_MESSAGE);
-						
+						//S'il n'y a qu'un problème de date
+						//JOptionPane.showMessageDialog(null, "incorrect date format. You should use 'YYYY-MM-DD'", "Incorrect Date", JOptionPane.WARNING_MESSAGE);
+						//request.setAttribute("errorName", false);
+						//request.setAttribute("dateError", true);
 					}
 				}
 				
@@ -115,15 +126,23 @@ public class EditController extends HttpServlet {
 						computer.setCompanie(newCompany);
 					    monService.updateComputer(computer);
 					    	
+					//on set nos variables d'erreur à false pour indiquer que tout a été édité correctement
+					    //request.setAttribute("errorName", false);
+					    //request.setAttribute("dateError", false);
 				   //Redirection vers la page principale
 					rd = getServletContext().getRequestDispatcher(response.encodeURL("/index.jsp"));
 					rd.forward(request, response);
 				  }
 				else{
-					if(error==false && (name.trim().isEmpty() || name == null) )
-						JOptionPane.showMessageDialog(null,"Please specify a name for your computer", "Name required", JOptionPane.WARNING_MESSAGE);
-					if(introducedDate == null || introducedDate.trim().isEmpty() || discontinuedDate == null || discontinuedDate.trim().isEmpty())
-						JOptionPane.showMessageDialog(null,"Please specify a date for your computer", "Date is required", JOptionPane.WARNING_MESSAGE);
+					//Si le nom est vide
+					if(error==false && (name.trim().isEmpty() || name == null) ){
+						//JOptionPane.showMessageDialog(null,"Please specify a name for your computer", "Name required", JOptionPane.WARNING_MESSAGE);
+						//request.setAttribute("errorName", true);
+					}
+					if(introducedDate == null || introducedDate.trim().isEmpty() || discontinuedDate == null || discontinuedDate.trim().isEmpty()){
+						//JOptionPane.showMessageDialog(null,"Please specify a date for your computer", "Date is required", JOptionPane.WARNING_MESSAGE);
+						//request.setAttribute("dateError", true);
+					}
 					//On reste sur la même page
 					//doGet(request, response);
 					

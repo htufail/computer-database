@@ -79,22 +79,30 @@ public class ComputerDaoImpl implements ComputerDao{
 		return computers;
 	}
 
+  /**
+   * @author Hina
+   * @param : String search qui représente la recherche de l'utilisateur
+   * Permet de récupérer le nombre d'ordinateurs affichés dans le tableau
+   */
   @Override
   public long getNbComputers(String search) {
 		
+	  //initialisation
 	  EntityManager em = null;
-		TypedQuery<Computer> query = null;
+	  TypedQuery<Computer> query = null;
+	  
 			try {
 				em = GeneralDaoManager.INSTANCE.getEntityManager();
 				em.getTransaction().begin();
-				System.out.println("search : "+ search);
+				
+				//dans le cas ou la recherche n'a pas encore eu lieu, on renvoie le nombre total d'ordinateurs existant dans le tableau
 				if(search == null || search.trim().isEmpty())
 				{
 					String string = "Select u From Computer u";
 					long result = em.createQuery(string).getResultList().size();
-					System.out.println("result  : " + result);
 					return result;
 				}
+				//dans le cas ou l'utilisateur a tapé une recherche, on ne souhaite afficher que le nombre d'ordinateurs qui contiennent cette recherche
 				else{
 					
 					String string = "Select u From Computer u Where u.name Like :search";
