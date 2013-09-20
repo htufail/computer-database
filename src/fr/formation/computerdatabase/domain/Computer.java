@@ -36,6 +36,11 @@ public class Computer {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="company_id")
 	private Company companie;
+	
+	/**
+	 * @author Hina
+	 * Différents getters et setters
+	 */
 
 	public long getId() {
 		return id;
@@ -77,13 +82,13 @@ public class Computer {
 		this.discontinued = discontinued;
 	}
 	
-	//Classe Builder
+	
 	/**
 	 * 
 	 * @author Hina
-	 * Ceci est un builder qui permet construire les ordinateurs
+	 * Builder permettant de construire les ordinateurs
 	 */
-		public static class Builder {
+	public static class Builder {
 			private Computer computer;
 
 			public Builder() {
@@ -124,6 +129,6 @@ public class Computer {
 			public Computer build() {
 				return computer;
 			}
-		}
+	}
 
 }

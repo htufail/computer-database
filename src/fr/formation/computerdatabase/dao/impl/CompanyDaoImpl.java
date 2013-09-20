@@ -11,12 +11,13 @@ import fr.formation.computerdatabase.domain.Company;
 
 public class CompanyDaoImpl implements CompanyDao{
 
-	@SuppressWarnings("unchecked")
-	@Override
+	
 	/**
 	 * @author Hina
 	 * Méthode permettant de récupérer les companies dans une liste
 	 */
+	@SuppressWarnings("unchecked")
+	@Override
 	public List<Company> getCompanies() {
 		
 		//On initialise
@@ -38,39 +39,39 @@ public class CompanyDaoImpl implements CompanyDao{
 				        em.close();
 			}
 
-		System.out.println("Returning result...");
 		return companies;
 		
 	}
 
 	
-	@Override
+	
 	/**
 	 * @author Hina
 	 * Méthode (utilisée dans l'ajout d'ordi) qui renvoie la company après qu'on ait récupéré l'id de la combobox
 	 */
+	@Override
 	public Company getCompany(long company_id) {
 		//On initialise
-				EntityManager em = null;
-				Company myCompany = new Company();
+		EntityManager em = null;
+		Company myCompany = new Company();
 
-				try {
+		try {
 					//On get un entity manager
 					em = GeneralDaoManager.INSTANCE.getEntityManager();
 					 //
 					String myQuery = "Select c from Company c WHERE c.id = " + company_id;
 					Query query = em.createQuery(myQuery);
 					myCompany = (Company) query.getSingleResult();
-				}
-					catch(Exception e) {
-					  e.printStackTrace();
-			    	}
-					finally {
-						if(em != null)
-						        em.close();
-					}
+		}
+		 catch(Exception e) {
+			  e.printStackTrace();
+		 }
+		 finally {
+			if(em != null)
+			em.close();
+		 }
 
-				return myCompany;
+		return myCompany;
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 import fr.formation.computerdatabase.domain.Computer;
 import fr.formation.computerdatabase.service.GeneralService;
@@ -33,19 +34,30 @@ public class DeleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//On récupère l'ordinateur via son id
-				String myId = request.getParameter("id");
-				long computer_id = Long.parseLong(myId);
-
-				Computer computer = monService.getComputerById(computer_id);
-				
-				monService.deleteComputer(computer);
-				System.out.println("le computer a été delete");
-				
-
-				//Affichage
-				RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/index.jsp"));
-				rd.forward(request, response);
+		
+		String myId = request.getParameter("id");
+		long computer_id = Long.parseLong(myId);
+		
+		int reply = JOptionPane.showConfirmDialog(null, "Do you wish to delete this computer ?", "Delete a computer", JOptionPane.WARNING_MESSAGE);
+		if(reply == JOptionPane.CANCEL_OPTION)
+		{
+			//Affichage
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/index.jsp"));
+			rd.forward(request, response);
+		}
+		else if(reply == JOptionPane.OK_OPTION){
+			
+			//On récupère l'ordinateur via son id
+			Computer computer = monService.getComputerById(computer_id);
+					
+			monService.deleteComputer(computer);
+			System.out.println("le computer a été delete");
+					
+			//Affichage
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/index.jsp"));
+			rd.forward(request, response);
+		}
+		
 	}
 
 	/**

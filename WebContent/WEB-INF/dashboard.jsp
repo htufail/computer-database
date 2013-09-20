@@ -4,7 +4,7 @@
 <%@ page import="fr.formation.computerdatabase.domain.*"%>
 
 <section id="main">
-	<h1 id="homeTitle"> ${ fn:length(computers) }
+	<h1 id="homeTitle"> ${totalComputer}
 	computers have been found
 		</h1>
 	<div id="actions">
@@ -39,11 +39,36 @@
 					<td><a href="EditController?id=${computer.id}"> ${computer.name}</a></td>
 					<td>${computer.introduced}</td>
 					<td>${computer.discontinued}</td>
-					<td>${computer.companie.name}</td> 
+					<td>${computer.companie.name}</td>
 				</tr>
 				</c:forEach>
 			</tbody>
 		</table>
+		
+
+<c:if test="${currentPage != 1}">
+        <td><a href="Controller?page=${currentPage - 1}">Previous</a></td>
+</c:if>
+ 
+    
+    <table border="1" cellpadding="5" cellspacing="5">
+        <tr>
+            <c:forEach begin="1" end="${nbPages}" var="index">
+                <c:choose>
+                    <c:when test="${currentPage eq index}">
+                        <td>${index}</td>
+                    </c:when>
+                    <c:otherwise>
+                        <td><a href="Controller?page=${index}">${index}</a></td>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </tr>
+    </table>
+ 
+    <c:if test="${currentPage lt nbPages}">
+        <td><a href="Controller?page=${currentPage + 1}">Next</a></td>
+    </c:if>-
 </section>
 
 <jsp:include page="include/footer.jsp" />

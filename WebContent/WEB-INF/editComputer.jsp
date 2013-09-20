@@ -1,6 +1,7 @@
 <jsp:include page="include/header.jsp" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="fr.formation.computerdatabase.domain.*"%>
+<script type="text/javascript" src="./js/verif.js"></script>
 
 <section id="main">
 
@@ -12,7 +13,7 @@
 				<label for="name">Computer name:</label>
 				<div class="input">
 					<input type="text" name="computerName" value="${computer.name}"/>
-					<span class="help-inline">Required</span>
+					<span class="help-inline" id="nameRequired">Required</span>
 				</div>
 			</div>
 	
@@ -20,14 +21,14 @@
 				<label for="introduced">Introduced date:</label>
 				<div class="input">
 					<input type="date" name="introducedDate" pattern="YY-MM-dd" value="${computer.introduced}"/>
-					<span class="help-inline">YYYY-MM-DD</span>
+					<span class="help-inline" id="dateInitRequired">format : YYYY-MM-DD - required</span>
 				</div>
 			</div>
 			<div class="clearfix">
 				<label for="discontinued">Discontinued date:</label>
 				<div class="input">
 					<input type="date" name="discontinuedDate" pattern="YY-MM-dd" value="${computer.discontinued}"/>
-					<span class="help-inline">YYYY-MM-DD</span>
+					<span class="help-inline" id="dateDiscRequired">format : YYYY-MM-DD - required</span>
 				</div>
 			</div>
 			<div class="clearfix">

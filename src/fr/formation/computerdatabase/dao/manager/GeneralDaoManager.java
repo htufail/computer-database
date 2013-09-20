@@ -17,6 +17,10 @@ public enum GeneralDaoManager {
 		private ComputerDao computerDao;
 		private EntityManagerFactory emf;
 		
+		/**
+		 * @author Hina
+		 * Constructeur
+		 */
 		private GeneralDaoManager() {
 			emf = Persistence.createEntityManagerFactory("JuliaHina");
 			companyDao = new CompanyDaoImpl();
@@ -24,17 +28,21 @@ public enum GeneralDaoManager {
 			
 		}
 
-		//Méthode qui get le Dao de la classe Company
+		/**
+		 * @author Hina
+		 * Différents getters et setters
+		 */
+		
 		public CompanyDao getCompanyDao() {
 			return companyDao;
 		}
 		
-		//Méthode qui get le Dao de la classe Computer
+		
 		public ComputerDao getComputerDao() {
 			return computerDao;
 		}
 
-		//Méthode qui crée un entity manager
+		
 		public EntityManager getEntityManager() {
 			return emf.createEntityManager();
 		}

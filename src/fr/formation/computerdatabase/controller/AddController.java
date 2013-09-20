@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 import fr.formation.computerdatabase.domain.Company;
 import fr.formation.computerdatabase.domain.Computer;
@@ -27,12 +28,15 @@ public class AddController extends HttpServlet {
        
 	//Declare un nouveau service
 	GeneralService monService;
+	//booléen permettant de dire qu'une erreur est déjà apparue (éviter la surcharge de pop ups)
+	boolean error;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public AddController() {
         super();
         monService = ServiceManager.INSTANCE.getGeneralService();
+        error=false;
     }
 
 	/**
@@ -70,7 +74,13 @@ public class AddController extends HttpServlet {
 			
 		} catch (ParseException e) {
 			//traitement des dates en cas de format incorrect
-			//e.printStackTrace();
+			if(name == null || name.trim().isEmpty()){
+				JOptionPane.showMessageDialog(null,"Please specify a name and a correct date format for your computer", "Name and date required", JOptionPane.WARNING_MESSAGE);
+				error=true;
+			}else{
+				JOptionPane.showMessageDialog(null, "incorrect date format. You should use 'YYYY-MM-DD'", "Incorrect Date", JOptionPane.WARNING_MESSAGE);
+				
+			}
 		}
 		
 		//On récupère l'id company renvoyé par le paramètre
@@ -81,11 +91,10 @@ public class AddController extends HttpServlet {
 		
 		RequestDispatcher rd;
 		//Test de validite des champs nom de l'ordi, dates, et entreprise
-		if(name != null && !name.trim().isEmpty() 
-		   	&& introducedDate != null 
-		   	&& !introducedDate.trim().isEmpty()
-		   	&& discontinuedDate != null 
-		   	&& !discontinuedDate.trim().isEmpty()){
+		if(name != null && !name.trim().isEmpty()
+			&& introducedDate !=null && !introducedDate.trim().isEmpty()
+			&& discontinuedDate != null && !discontinuedDate.trim().isEmpty()
+			){
 			    	monService.addComputer(new Computer.Builder().name(name)
 			    							.introduced(newDateInit)
 			    							.discontinued(newDateDisc)
@@ -94,13 +103,17 @@ public class AddController extends HttpServlet {
 			    	
 					   //Redirection vers la page principale
 			rd = getServletContext().getRequestDispatcher(response.encodeURL("/index.jsp"));
+			rd.forward(request, response);
 		  }
 		else{
-			rd = getServletContext().getRequestDispatcher(response.encodeURL("/WEB-INF/addComputer.jsp"));
+			if(!error)
+				JOptionPane.showMessageDialog(null,"Please specify a name for your computer", "Name required", JOptionPane.WARNING_MESSAGE);
+			//On reste sur la même page
+			doGet(request, response);
 		}
 			    
 
-			rd.forward(request, response);
+			
 		
 	}
 

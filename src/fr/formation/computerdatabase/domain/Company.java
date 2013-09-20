@@ -17,6 +17,12 @@ public class Company {
 	
 	@Column(name="name")
 	private String name;
+	
+	/**
+	 * @author Hina
+	 * Différents setters et getters
+	 * 
+	 */
 
 	public long getId() {
 		return id;

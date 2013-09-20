@@ -15,11 +15,20 @@ public class GeneralServiceImpl implements GeneralService{
 	CompanyDao companyDao;
 	ComputerDao computerDao;
 	
+	/**
+	 * @author Hina
+	 * Constructeur 
+	 */
 	public GeneralServiceImpl(){
 		companyDao = GeneralDaoManager.INSTANCE.getCompanyDao();
 		computerDao = GeneralDaoManager.INSTANCE.getComputerDao();
 	}
 	
+	
+	/**
+	 * @author Hina
+	 * Différents getters et setters
+	 */
 	@Override
 	public List<Company> getCompanies() {
 		
@@ -53,6 +62,11 @@ public class GeneralServiceImpl implements GeneralService{
 		return computerDao.getComputerById(computer_id);
 	}
 
+	/**
+	 * @author Hina
+	 * fonction de mise à jour et de suppression d'un ordinateur
+	 */
+	
 	@Override
 	public void updateComputer(Computer computer) {
 		computerDao.updateComputer(computer);
@@ -62,6 +76,19 @@ public class GeneralServiceImpl implements GeneralService{
 	@Override
 	public void deleteComputer(Computer computer) {
 		computerDao.deleteComputer(computer);		
+	}
+
+
+	@Override
+	public List<Computer> getComputersByPage(int offset, int noOfRecords) {
+		// TODO Auto-generated method stub
+		return computerDao.getComputersByPage(offset, noOfRecords);
+	}
+
+
+	public long getNbComputers(String search) {
+		// TODO Auto-generated method stub
+		return computerDao.getNbComputers(search);
 	}
 
 }

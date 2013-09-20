@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 import fr.formation.computerdatabase.domain.Company;
 import fr.formation.computerdatabase.domain.Computer;
@@ -28,6 +29,7 @@ public class EditController extends HttpServlet {
 	//Declare un nouveau service
 	GeneralService monService;
 	Long computer_id;
+	boolean error;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -35,6 +37,7 @@ public class EditController extends HttpServlet {
         super();
         monService = ServiceManager.INSTANCE.getGeneralService();
         computer_id=null;
+        error=false;
     }
 
 	/**
@@ -76,12 +79,20 @@ public class EditController extends HttpServlet {
 				Date newDateInit = null;
 				Date newDateDisc = null;
 				try {
-					newDateInit = df.parse(introducedDate);
-					newDateDisc = df.parse(discontinuedDate);
+					if(!introducedDate.trim().isEmpty() && introducedDate != null)
+						newDateInit = df.parse(introducedDate);
+					if(!discontinuedDate.trim().isEmpty() && discontinuedDate != null)
+						newDateDisc = df.parse(discontinuedDate);
 					
 				} catch (ParseException e) {
 					//traitement des dates en cas de format incorrect
-					//e.printStackTrace();
+					if(name == null || name.trim().isEmpty()){
+						JOptionPane.showMessageDialog(null,"Please specify a name and a correct date format for your computer", "Name and date required", JOptionPane.WARNING_MESSAGE);
+						error=true;
+					}else{
+						JOptionPane.showMessageDialog(null, "incorrect date format. You should use 'YYYY-MM-DD'", "Incorrect Date", JOptionPane.WARNING_MESSAGE);
+						
+					}
 				}
 				
 				//On récupère l'id company renvoyé par le paramètre
@@ -94,10 +105,9 @@ public class EditController extends HttpServlet {
 				RequestDispatcher rd;
 				//Test de validite des champs nom de l'ordi, dates, et entreprise
 				if(name != null && !name.trim().isEmpty() 
-				   	&& introducedDate != null 
-				   	&& !introducedDate.trim().isEmpty()
-				   	&& discontinuedDate != null 
-				   	&& !discontinuedDate.trim().isEmpty()){
+				   	&& newDateInit != null 
+				   	&& newDateDisc != null
+				   	){
 					
 						computer.setName(name);
 						computer.setIntroduced(newDateInit);
@@ -107,13 +117,18 @@ public class EditController extends HttpServlet {
 					    	
 				   //Redirection vers la page principale
 					rd = getServletContext().getRequestDispatcher(response.encodeURL("/index.jsp"));
+					rd.forward(request, response);
 				  }
 				else{
-					rd = getServletContext().getRequestDispatcher(response.encodeURL("/WEB-INF/editComputer.jsp"));
+					if(error==false && (name.trim().isEmpty() || name == null) )
+						JOptionPane.showMessageDialog(null,"Please specify a name for your computer", "Name required", JOptionPane.WARNING_MESSAGE);
+					if(introducedDate == null || introducedDate.trim().isEmpty() || discontinuedDate == null || discontinuedDate.trim().isEmpty())
+						JOptionPane.showMessageDialog(null,"Please specify a date for your computer", "Date is required", JOptionPane.WARNING_MESSAGE);
+					//On reste sur la même page
+					//doGet(request, response);
+					
 				}
-					    
-
-					rd.forward(request, response);
+				
 	}
 
 
